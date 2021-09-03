@@ -12,14 +12,10 @@ from typing import Tuple
 
 
 def find_maximum_and_minimum(file_name: str) -> Tuple[int, int]:
+    min_and_max = []
     with open(file_name) as f:
-        numbers = f.read().replace('\n', ' ').split()
-        print(numbers)
-    max_value = min_value = int(numbers[0])
-    for i in numbers:
-        tmp = int(i)
-        if tmp > max_value:
-            max_value = tmp
-        elif tmp < min_value:
-            min_value = tmp
-    return min_value, max_value
+        for line in f:
+            split = [int(i) for i in line.strip().split()]
+            min_and_max.append(min(split))
+            min_and_max.append(max(split))
+    return min(min_and_max), max(min_and_max)
