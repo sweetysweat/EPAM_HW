@@ -23,7 +23,3 @@ def find_maximum_and_minimum(file_name: str) -> Tuple[int, int]:
         elif tmp < min_value:
             min_value = tmp
     return min_value, max_value
-
-
-if __name__ == '__main__':
-    find_maximum_and_minimum("file.txt")

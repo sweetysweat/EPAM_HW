@@ -17,7 +17,3 @@ def check_sum_of_four(a: List[int], b: List[int], c: List[int], d: List[int]) ->
                     if a[a_counter] + b[b_counter] + c[c_counter] + d[d_counter] == 0:
                         count_zero += 1
     return count_zero
-
-
-if  __name__ == '__main__':
-    check_sum_of_four([1, 0, 3], [1, 1, 0], [0, 1, 1], [0, 2, 3])

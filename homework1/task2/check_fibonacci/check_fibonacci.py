@@ -21,7 +21,3 @@ def check_fibonacci(data: Sequence[int]) -> bool:
         return True
     else:
         return False
-
-
-if __name__ == '__main__':
-    check_fibonacci([0, 1, 1, 2])
