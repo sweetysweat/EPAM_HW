@@ -7,4 +7,3 @@ def test_check_power_of_2(test_input, expectation):
     assert check_power_of_2(test_input) == expectation
     assert check_power_of_2(test_input) == expectation
     assert check_power_of_2(test_input) == expectation
-
