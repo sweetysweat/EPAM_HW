@@ -1,5 +1,5 @@
 import pytest
-from find_maximal_subarray_sum.find_maximal_subarray_sum import find_maximal_subarray_sum
+from homework1.task5 import find_maximal_subarray_sum
 
 
 @pytest.mark.parametrize("test_input, sub_len, expectation", [[[1, 3, -1, -3, 5, 3, 6, 7], 3, 16]])

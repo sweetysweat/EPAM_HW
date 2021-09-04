@@ -1,5 +1,5 @@
 import pytest
-from find_max_and_min.find_max_and_min import find_maximum_and_minimum
+from homework1.task3 import find_maximum_and_minimum
 
 
 @pytest.mark.parametrize("test_input, expectation", [['file.txt', (-1, 20)]])

@@ -1,5 +1,5 @@
 import pytest
-from check_fibonachi.check_fibonacci import check_fibonacci
+from homework1.task2 import check_fibonacci
 
 
 @pytest.mark.parametrize("test_input", [[0, 1, 1, 2], [2, 3, 4]])
