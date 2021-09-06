@@ -6,15 +6,40 @@ Given a file containing text. Complete using only default collections:
     4) Count every non ascii char
     5) Find most common non ascii char for document
 """
+import string
+import unicodedata
 from typing import List
-import codecs
 
 
 def get_longest_diverse_words(file_path: str) -> List[str]:
+    longest_diverse_words = []
+    mem = ''
     with open(file_path) as f:
         for line in f:
-            data = line.encode('utf-8').decode('utf-8')
-            # print(data)
+            data = line.strip().encode().decode('unicode-escape').split()
+            print(data)
+            for word in data:
+                check = data[-1]
+                if check[-1] == '-':
+                    mem = check[0:-1]
+                    continue
+                if mem != '':
+                    word = mem + word
+                    mem = ''
+                # if word in longest_diverse_words:
+                #     continue
+                for symbol in word:
+                    if unicodedata.category(symbol).startswith('P'):
+                        word = word.replace(symbol, '')
+                if len(longest_diverse_words) < 10:
+                    longest_diverse_words.append(word)
+                else:
+                    for element in longest_diverse_words:
+                        if len(set(element)) < len(set(word)):
+                            longest_diverse_words.remove(element)
+                            longest_diverse_words.append(word)
+        print(longest_diverse_words)
+
 
 
 def get_rarest_char(file_path: str) -> str:
@@ -33,11 +58,6 @@ def get_most_common_non_ascii_char(file_path: str) -> str:
     ...
 
 
-# s = '\u00bbJetzt und hier\u00ab'
-# d = s.strip().encode().decode()
-# print(d)
-# get_longest_diverse_words('data.txt')
-
-with codecs.open('data.txt', encoding='utf-8') as f:
-    for line in f:
-        print(line.strip().encode('utf-8').decode('unicode-escape'))
+get_longest_diverse_words('data.txt')
+s = 'Souveränitätsansprüch'
+print(s.lower())
