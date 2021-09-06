@@ -7,13 +7,14 @@ Given a file containing text. Complete using only default collections:
     5) Find most common non ascii char for document
 """
 from typing import List
+import codecs
 
 
 def get_longest_diverse_words(file_path: str) -> List[str]:
     with open(file_path) as f:
         for line in f:
             data = line.encode('utf-8').decode('utf-8')
-            print(data)
+            # print(data)
 
 
 def get_rarest_char(file_path: str) -> str:
@@ -32,11 +33,11 @@ def get_most_common_non_ascii_char(file_path: str) -> str:
     ...
 
 
-s = '\u00bbJetzt und hier\u00ab'
-d = s.strip().encode()
-print(d)
+# s = '\u00bbJetzt und hier\u00ab'
+# d = s.strip().encode().decode()
+# print(d)
 # get_longest_diverse_words('data.txt')
 
-with open('data.txt') as f:
+with codecs.open('data.txt', encoding='utf-8') as f:
     for line in f:
-        print(line.encode())
+        print(line.strip().encode('utf-8').decode('unicode-escape'))
