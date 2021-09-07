@@ -16,8 +16,7 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
     mem = ''
     with open(file_path) as f:
         for line in f:
-            data = line.strip().encode().decode('unicode-escape').split()
-            print(data)
+            data = line.strip().encode().decode('unicode-escape').lower().split()
             for word in data:
                 check = data[-1]
                 if check[-1] == '-':
@@ -26,11 +25,11 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
                 if mem != '':
                     word = mem + word
                     mem = ''
-                # if word in longest_diverse_words:
-                #     continue
                 for symbol in word:
                     if unicodedata.category(symbol).startswith('P'):
                         word = word.replace(symbol, '')
+                if word in longest_diverse_words:
+                    continue
                 if len(longest_diverse_words) < 10:
                     longest_diverse_words.append(word)
                 else:
@@ -38,7 +37,9 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
                         if len(set(element)) < len(set(word)):
                             longest_diverse_words.remove(element)
                             longest_diverse_words.append(word)
+                            break
         print(longest_diverse_words)
+
 
 
 
