@@ -8,6 +8,7 @@ Given a file containing text. Complete using only default collections:
 """
 import string
 import unicodedata
+from collections import Counter
 from typing import List
 
 
@@ -38,13 +39,23 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
                             longest_diverse_words.remove(element)
                             longest_diverse_words.append(word)
                             break
-        print(longest_diverse_words)
-
-
+    return longest_diverse_words
 
 
 def get_rarest_char(file_path: str) -> str:
-    ...
+    chars_count = Counter()
+    with open(file_path) as f:
+        for line in f:
+            data = line.strip().encode().decode('unicode-escape').lower().replace(' ', '')
+            for char in data:
+                if char not in chars_count:
+                    chars_count[char] = 1
+                else:
+                    chars_count[char] += 1
+    return chars_count.most_common()[-1][0]
+
+
+
 
 
 def count_punctuation_chars(file_path: str) -> int:
@@ -57,8 +68,3 @@ def count_non_ascii_chars(file_path: str) -> int:
 
 def get_most_common_non_ascii_char(file_path: str) -> str:
     ...
-
-
-get_longest_diverse_words('data.txt')
-s = 'Souveränitätsansprüch'
-print(s.lower())
