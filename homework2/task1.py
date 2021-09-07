@@ -55,16 +55,44 @@ def get_rarest_char(file_path: str) -> str:
     return chars_count.most_common()[-1][0]
 
 
-
-
-
 def count_punctuation_chars(file_path: str) -> int:
-    ...
+    count = 0
+    with open(file_path) as f:
+        for line in f:
+            data = line.strip().encode().decode('unicode-escape')
+            print(data)
+            for symbol in data:
+                if unicodedata.category(symbol).startswith('P'):
+                    if symbol != '-':
+                        count += 1
+
+    return count
 
 
 def count_non_ascii_chars(file_path: str) -> int:
-    ...
+    count = 0
+    with open(file_path) as f:
+            for line in f:
+                data = line.strip().encode().decode('unicode-escape').strip()
+                for element in data:
+                    if not element.isascii():
+                        count += 1
+
+    return count
 
 
 def get_most_common_non_ascii_char(file_path: str) -> str:
-    ...
+    symbols = Counter()
+    with open(file_path) as f:
+        for line in f:
+            data = line.strip().encode().decode('unicode-escape').strip()
+            for element in data:
+                if not element.isascii():
+                    if element not in symbols:
+                        symbols[element] = 1
+                    else:
+                        symbols[element] += 1
+    return symbols.most_common(1)[0][0]
+
+
+count_non_ascii_chars('data.txt')
