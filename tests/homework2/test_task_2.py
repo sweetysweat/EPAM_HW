@@ -10,5 +10,3 @@ from homework2.task2 import major_and_minor_elem
                          ])
 def test_major_and_minor_elem(test_input, expected):
     assert major_and_minor_elem(test_input) == expected
-    assert major_and_minor_elem(test_input) == expected
-    assert major_and_minor_elem(test_input) == expected

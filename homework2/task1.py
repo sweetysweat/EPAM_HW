@@ -6,6 +6,7 @@ Given a file containing text. Complete using only default collections:
     4) Count every non ascii char
     5) Find most common non ascii char for document
 """
+import string
 import unicodedata
 from collections import Counter
 from typing import List
@@ -19,13 +20,12 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
             data = line.strip().encode().decode('unicode-escape').lower().split()
             for word in data:
                 check = data[-1]
-                if check[-1] == '-':
-                    mem = check[0:-1]
-                    continue
-                if mem != '':
+                if mem:
                     word = mem + word
                     mem = ''
-                for symbol in word:
+                if check[-1] == '-':
+                    mem = check[0:-1]
+                for symbol in string.punctuation:
                     if unicodedata.category(symbol).startswith('P'):
                         word = word.replace(symbol, '')
                 if word in longest_diverse_words:
@@ -33,11 +33,9 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
                 if len(longest_diverse_words) < 10:
                     longest_diverse_words.append(word)
                 else:
-                    for element in longest_diverse_words:
-                        if len(set(element)) < len(set(word)):
-                            longest_diverse_words.remove(element)
-                            longest_diverse_words.append(word)
-                            break
+                    longest_diverse_words = sorted(longest_diverse_words, key=lambda x: len(set(x)))
+                    if len(set(longest_diverse_words[0])) < len(set(word)):
+                        longest_diverse_words[0] = word
     return longest_diverse_words
 
 
@@ -59,24 +57,20 @@ def count_punctuation_chars(file_path: str) -> int:
     with open(file_path) as f:
         for line in f:
             data = line.strip().encode().decode('unicode-escape')
-            print(data)
             for symbol in data:
-                if unicodedata.category(symbol).startswith('P'):
-                    if symbol != '-':
-                        count += 1
-
+                if symbol in string.punctuation:
+                    count += 1
     return count
 
 
 def count_non_ascii_chars(file_path: str) -> int:
     count = 0
     with open(file_path) as f:
-            for line in f:
-                data = line.strip().encode().decode('unicode-escape').strip()
-                for element in data:
-                    if not element.isascii():
-                        count += 1
-
+        for line in f:
+            data = line.strip().encode().decode('unicode-escape').strip()
+            for element in data:
+                if not element.isascii():
+                    count += 1
     return count
 
 
@@ -92,6 +86,3 @@ def get_most_common_non_ascii_char(file_path: str) -> str:
                     else:
                         symbols[element] += 1
     return symbols.most_common(1)[0][0]
-
-
-count_non_ascii_chars('data.txt')

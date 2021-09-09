@@ -16,24 +16,13 @@ Input: [2,2,1,1,1,2,2]
 Output: 2, 1
 """
 from typing import List, Tuple
+from collections import defaultdict
 
 
 def major_and_minor_elem(inp: List) -> Tuple[int, int]:
-    max_elem, min_elem = 0, 0
-    dic = {}
-    lst = []
+    elements = defaultdict(int)
     for num in inp:
-        if num not in dic:
-            dic[num] = 1
-        else:
-            dic[num] += 1
-    for element in dic:
-        lst.append(dic[element])
-    most = max(lst)
-    least = min(lst)
-    for key, value in dic.items():
-        if dic[key] == most:
-            max_elem = key
-        elif dic[key] == least:
-            min_elem = key
-    return max_elem, min_elem
+        elements[num] += 1
+    elements = list(elements.items())
+    elements = sorted(elements, key=lambda x: x[1])
+    return elements[-1][0], elements[0][0]

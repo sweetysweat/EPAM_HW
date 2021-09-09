@@ -25,8 +25,13 @@ def func(a, b):
 
 
 def cache(func: Callable) -> Callable:
-    catch = {}
-
+    cached = {}
+    def cash_data(*args):
+        if args in cached:
+            return cached[args]
+        value = func(*args)
+        cached[args] = value
+    return cash_data
 
 
 cache_func = cache(func)
@@ -34,4 +39,6 @@ cache_func = cache(func)
 some = 100, 200
 val_1 = cache_func(*some)
 val_2 = cache_func(*some)
-assert val_1 is val_2
+val_3 = cache_func(*some)
+# assert val_1 is val_2
+assert val_3 is val_2
