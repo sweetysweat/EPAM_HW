@@ -52,8 +52,3 @@ def fun(a, b):
 @cache_factory(times=3)
 def f():
     return input('? ')
-
-
-print(fun(2, 2))
-print(fun(2, 2))
-print(fun(2, 2))
