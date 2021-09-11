@@ -14,14 +14,14 @@ from typing import List, Iterable, Any
 
 
 def custom_range(iterable: Iterable, start, stop=None, step=1) -> List[Any]:
-    lst = []
+    result = []
     start = iterable.index(start)
     if stop is None:
         for i in range(0, start, step):
-            lst.append(iterable[i])
-        return lst
+            result.append(iterable[i])
+        return result
     else:
         stop = iterable.index(stop)
         for i in range(start, stop, step):
-            lst.append(iterable[i])
-        return lst
+            result.append(iterable[i])
+        return result

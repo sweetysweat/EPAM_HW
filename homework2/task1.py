@@ -7,7 +7,6 @@ Given a file containing text. Complete using only default collections:
     5) Find most common non ascii char for document
 """
 import string
-import unicodedata
 from collections import Counter
 from typing import List
 
@@ -25,8 +24,8 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
                     mem = ''
                 if check[-1] == '-':
                     mem = check[0:-1]
-                for symbol in string.punctuation:
-                    if unicodedata.category(symbol).startswith('P'):
+                for symbol in word:
+                    if symbol in string.punctuation:
                         word = word.replace(symbol, '')
                 if word in longest_diverse_words:
                     continue
