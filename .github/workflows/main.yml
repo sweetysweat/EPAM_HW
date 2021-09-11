@@ -24,9 +24,6 @@ jobs:
           echo "testing ls"
           ls -la
           echo "Done: ls"
-          echo "testing isort"
-          isort --check .
-          echo "Done: testing isort"
           echo "testing pytest"
           pytest tests
           echo "Done: testing pytest"
