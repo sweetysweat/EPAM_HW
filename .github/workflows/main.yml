@@ -24,6 +24,9 @@ jobs:
           echo "testing ls"
           ls -la
           echo "Done: ls"
+          echo "testing flack8"
+          flake8 .  --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          echo "Done: testing flack8"
           echo "testing pytest"
           pytest tests
           echo "Done: testing pytest"
