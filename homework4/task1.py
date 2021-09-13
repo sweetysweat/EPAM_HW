@@ -32,4 +32,4 @@ def read_magic_number(path: str) -> bool:
         data = int(data)
         return data in [1, 2]
     except ValueError:
-        raise Exception('ValueError. In first line of the file must be number from 1 to 2.')
+        raise ValueError('ValueError. In first line of the file must be number from 1 to 2.')

@@ -1,6 +1,6 @@
+from homework4.task1 import read_magic_number
 import os
 import pytest
-from homework4.task1 import read_magic_number
 
 
 @pytest.mark.parametrize("test_input", ['2'])
@@ -25,4 +25,3 @@ def create_test_data(data):
 
 def check_that_there_is_no_created_data_for_test():
     return os.path.isfile("test_input_data")
-
