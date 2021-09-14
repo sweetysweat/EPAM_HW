@@ -26,10 +26,10 @@ You will learn:
 
 
 def read_magic_number(path: str) -> bool:
-    with open(path) as f:
-        data = f.readline()
     try:
+        with open(path, 'r') as f:
+            data = f.readline()
         data = int(data)
         return data in [1, 2]
-    except ValueError:
+    except Exception:
         raise ValueError('ValueError. In first line of the file must be number from 1 to 2.')
