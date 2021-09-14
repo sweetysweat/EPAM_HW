@@ -23,5 +23,12 @@ def create_test_data(data):
         f.write(data)
 
 
+@pytest.mark.parametrize("test_input", ['qwe'])
+def test_value_exception_in_read_magic_number(test_input):
+    create_test_data(test_input)
+    pytest.raises(ValueError, read_magic_number, "test_input_data.txt")
+    os.remove("test_input_data.txt")
+
+
 def check_that_there_is_no_created_data_for_test():
     return os.path.isfile("test_input_data")
