@@ -15,10 +15,9 @@ You will learn:
  - how to write to stderr
  - how to test output to the stderr and stdout
 """
-import re
 import sys
 
 
 def my_precious_logger(text: str):
-    pattern = r'error:'
-    return sys.stderr.write(text) if re.search(pattern, text) else sys.stdout.write(text)
+    pattern = "error:"
+    sys.stderr.write(text) if text.startswith(pattern) else sys.stdout.write(text)

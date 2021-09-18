@@ -15,5 +15,8 @@ Definition of done:
 from typing import List, Generator
 
 
-def fizzbuzz(n: int) -> Generator[str]:
-    pass
+def fizzbuzz(n: int) -> Generator[str, None, None]:
+    inc = 1
+    while inc <= n:
+        yield (inc % 3 == 0) * "fizz" + (inc % 5 == 0) * "buzz" or str(inc)
+        inc += 1

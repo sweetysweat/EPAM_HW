@@ -19,6 +19,7 @@ You will learn:
 59
 * https://docs.python.org/3/library/urllib.request.html#urllib.request.urlopen
 """
+import urllib.error
 from urllib import request
 
 
@@ -31,6 +32,6 @@ def count_dots_on_i(url: str) -> int:
                 for symbol in data:
                     if symbol == 'i':
                         count_letter_i += 1
-    except Exception:
+        return count_letter_i
+    except urllib.error.URLError:
         raise ValueError(f"Unreachable {url}")
-    return count_letter_i

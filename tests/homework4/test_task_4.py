@@ -1,5 +1,6 @@
-import doctest
-
-
 def test_fizzbuzz_by_doctest():
-    doctest.testfile("doctest_file_for_task_4.txt")
+    """
+    >>> from homework4.task4 import fizzbuzz
+    >>> fizzbuzz(5)
+    ['1', '2', 'fizz', '4', 'buzz']
+    """
