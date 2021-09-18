@@ -2,32 +2,22 @@
 
 name: CI
 
-on: [push]
+on: push
 
 jobs:
   code_quality:
     runs-on: ubuntu-latest
-    name: Checks with flake8, isort and possibly run tests
+    name: Checks with black, isort and possibly run tests
+    container: python:3.9
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Install dependencies
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run script
         run: |
-          pip install flake8 isort pytest
-          pip install -r requirements.txt
-      #- name: ls
-       # run: |
-        #  ls -la
-      #- name: Lint with flake8
-       # run: |
-        #  flake8 .
-      - name: isort
-        run: |
+          pip install flake8 isort pytest mypy requests_mock
+          ls -la
+          flake8 .
+          mypy . --install-types --non-interactive --ignore-missing-imports
           isort --check .
-      - name: Test with pytest
-        run: |
-          pytest
+          py.test tests
