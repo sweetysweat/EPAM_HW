@@ -19,4 +19,4 @@ jobs:
           ls -la
           flake8 . --max-line-length=120
           isort --check .
-          #py.test tests
+          py.test tests
