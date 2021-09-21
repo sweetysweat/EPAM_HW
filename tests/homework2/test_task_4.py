@@ -1,4 +1,5 @@
 import pytest
+
 from homework2.task4 import func
 
 
