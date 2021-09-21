@@ -16,10 +16,10 @@ more than a minute. Use functional capabilities of multiprocessing module.
 You are not allowed to modify slow_calculate function.
 
 """
-import time
-import struct
-import random
 import hashlib
+import random
+import struct
+import time
 from multiprocessing import Pool
 from typing import List
 

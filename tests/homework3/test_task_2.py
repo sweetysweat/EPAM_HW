@@ -1,7 +1,8 @@
-import pytest
 import time
-from homework3.task2 import multiprocessing_calculation
 
+import pytest
+
+from homework3.task2 import multiprocessing_calculation
 
 test_data = [i for i in range(10)]
 

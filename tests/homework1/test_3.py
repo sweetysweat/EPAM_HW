@@ -1,4 +1,5 @@
 import pytest
+
 from homework1.task3 import find_maximum_and_minimum
 
 

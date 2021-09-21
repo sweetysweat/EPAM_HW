@@ -1,7 +1,9 @@
 import unittest
-import pytest
 from unittest.mock import patch
-from homework3.task1 import f, fun, cache_factory
+
+import pytest
+
+from homework3.task1 import cache_factory, f, fun
 
 test_data_for_cache_factory = 0
 
