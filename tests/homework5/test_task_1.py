@@ -1,9 +1,9 @@
+import datetime
 from unittest.mock import MagicMock
 
-from homework5.task1 import Homework, Student, Teacher
-
 import pytest
-import datetime
+
+from homework5.task1 import Homework, Student, Teacher
 
 date_and_time_for_tests = datetime.datetime(2021, 9, 5, 15, 7, 13, 123456)
 
