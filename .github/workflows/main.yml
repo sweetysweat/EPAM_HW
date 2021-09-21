@@ -17,7 +17,7 @@ jobs:
         run: |
           pip install flake8 pytest isort
           ls -la
-          flake8 . --max-line-length = 100
+          flake8 . --max-line-length=120
           #mypy . --install-types --non-interactive --ignore-missing-imports
           #isort --check .
           #py.test tests
