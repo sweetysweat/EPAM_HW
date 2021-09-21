@@ -4,7 +4,6 @@ import pytest
 
 from homework1.task3 import find_maximum_and_minimum
 
-
 path_to_test = os.getcwd() + "/tests/homework1/test_file.txt"
 
 
