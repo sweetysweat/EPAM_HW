@@ -1,6 +1,7 @@
-from homework4.task2 import count_dots_on_i
-from unittest.mock import patch
 from contextlib import contextmanager
+from unittest.mock import patch
+
+from homework4.task2 import count_dots_on_i
 
 
 @contextmanager

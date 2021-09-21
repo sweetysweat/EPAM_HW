@@ -1,7 +1,8 @@
-from homework4.task1 import read_magic_number
 import os
+
 import pytest
 
+from homework4.task1 import read_magic_number
 
 txt_file = "test_input_data.txt"
 

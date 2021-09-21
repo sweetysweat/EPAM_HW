@@ -1,6 +1,8 @@
 import sys
-from homework4.task3 import my_precious_logger
+
 import pytest
+
+from homework4.task3 import my_precious_logger
 
 
 @pytest.mark.parametrize("test_input", ["qwe", "error: something bad"])

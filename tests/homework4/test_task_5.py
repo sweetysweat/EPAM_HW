@@ -1,5 +1,6 @@
-from homework4.task5 import fizzbuzz
 import pytest
+
+from homework4.task5 import fizzbuzz
 
 
 @pytest.mark.parametrize("input_data, expectation", [[5, ["1", "2", "fizz", "4", "buzz"]]])
