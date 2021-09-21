@@ -7,8 +7,7 @@ def test_if_Filter_gets_not_iterable_value():
     Если мы создаем экземпляр класса Fileter с не итерируемым аргументом, то
     выполнение кода не является возможным.
     """
-    filter = lambda x: x % 2 == 0
-    var = t3.Filter(filter)
+    var = t3.Filter(lambda x: x % 2 == 0)
     assert not isinstance(var, Iterable)
 
 
