@@ -18,6 +18,10 @@ from typing import List
 
 
 def fizzbuzz(n: int) -> List[str]:
+    """
+    >>> fizzbuzz(5)
+    ['1', '2', 'fizz', '4', 'buzz']
+    """
     result = []
     for num in range(1, n + 1):
         if num % 3 == 0 and num % 5 == 0:

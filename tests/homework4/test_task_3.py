@@ -9,5 +9,5 @@ def test_my_precious_logger(test_input, capsys):
     captured = capsys.readouterr()
     if sys.stderr.isatty():
         assert captured.err == test_input
-    elif sys.stdout.isatty():
+    if sys.stdout.isatty():
         assert captured.out == test_input
