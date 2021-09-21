@@ -52,7 +52,9 @@ class Homework:
     def __init__(self, homework_name, deadline):
         self.homework_name = homework_name
         self.deadline = datetime.timedelta(days=deadline)
-        self.created = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+        self.created = datetime.datetime.now()
+
+
     def is_active(self):
         self.
 
