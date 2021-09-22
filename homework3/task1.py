@@ -30,11 +30,11 @@ def cache_factory(times=2):
     def cache(func: Callable) -> Callable:
         cached = {}
 
-        def cash_data(*args):
+        def cash_data(*args, **kwargs):
             if args in cached:
                 cached[args][1] -= 1
                 if cached[args][1] == 0:
-                    cached[args] = [func(*args), times]
+                    cached[args] = [func(*args, **kwargs), times]
                     return cached[args][0]
                 return cached[args][0]
             cached[args] = [func(*args), times]

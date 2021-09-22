@@ -5,10 +5,11 @@ import pytest
 
 from homework3.task1 import cache_factory, f, fun
 
-test_data_for_cache_factory = 0
-
 
 def test_cache_factory_should_return_value_required_number_of_times():
+    global test_data_for_cache_factory
+    test_data_for_cache_factory = 0
+
     @cache_factory(3)
     def inner_test_func():
         global test_data_for_cache_factory
