@@ -1,4 +1,4 @@
-from collections import Iterable
+from collections.abc import Iterable
 
 import homework3.task3 as t3
 

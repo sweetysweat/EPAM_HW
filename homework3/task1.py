@@ -32,7 +32,7 @@ def cache_factory(times=2):
 
         def cash_data(*args, **kwargs):
             data = (args, frozenset(kwargs.items()))
-            if data[0] in cached or data[1] in cached:
+            if data in cached:
                 cached[data][1] -= 1
                 if cached[data][1] == 0:
                     cached[data] = [func(*args, **kwargs), times]
