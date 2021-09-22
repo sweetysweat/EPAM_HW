@@ -31,14 +31,15 @@ def cache_factory(times=2):
         cached = {}
 
         def cash_data(*args, **kwargs):
-            if args in cached:
-                cached[args][1] -= 1
-                if cached[args][1] == 0:
-                    cached[args] = [func(*args, **kwargs), times]
-                    return cached[args][0]
-                return cached[args][0]
-            cached[args] = [func(*args), times]
-            return cached[args][0]
+            data = (args, frozenset(kwargs.items()))
+            if data[0] in cached or data[1] in cached:
+                cached[data][1] -= 1
+                if cached[data][1] == 0:
+                    cached[data] = [func(*args, **kwargs), times]
+                    return cached[data][0]
+                return cached[data][0]
+            cached[data] = [func(*args), times]
+            return cached[data][0]
 
         return cash_data
 
