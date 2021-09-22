@@ -19,10 +19,11 @@ import functools
 
 
 def custom_wrapper(func):
-    def print_res_func(decorator):
+
+    def print_res_func(decor):
 
         def func_info(*args, **kwargs):
-            return decorator(*args, **kwargs)
+            return decor(*args, **kwargs)
 
         func_info.__name__ = func.__name__
         func_info.__doc__ = func.__doc__
@@ -34,7 +35,7 @@ def custom_wrapper(func):
 
 
 def print_result(func):
-    @custom_wrapper
+    @custom_wrapper(func)
     def wrapper(*args, **kwargs):
         """Function-wrapper which print result of an original function"""
         result = func(*args, **kwargs)
@@ -50,13 +51,5 @@ def custom_sum(*args):
     return functools.reduce(lambda x, y: x + y, args)
 
 
-if __name__ == "__main__":
-    custom_sum([1, 2, 3], [4, 5])
-    custom_sum(1, 2, 3, 4)
-
-    print(custom_sum.__doc__)
-    print(custom_sum.__name__)
-    print(custom_sum.__original_func)
-
-    # the result returns without printing
-    # without_print(1, 2, 3, 4)
+print(custom_sum.__original_func)
+print(custom_sum)

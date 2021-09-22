@@ -37,32 +37,32 @@ import datetime
 
 
 class Student:
-    def __init__(self, first_name, last_name):
+    def __init__(self, first_name, last_name) -> None:
         self.first_name = first_name
         self.last_name = last_name
 
     @staticmethod
-    def do_homework(homework):
+    def do_homework(homework) -> str:
         if homework.is_active():
             return homework
         return "You are late"
 
 
-class Teacher:
-    def __init__(self, first_name, last_name):
-        self.first_name = first_name
-        self.last_name = last_name
-
-    @staticmethod
-    def create_homework(homework_name, deadline):
-        return Homework(homework_name, deadline)
-
-
 class Homework:
-    def __init__(self, homework_name, deadline):
+    def __init__(self, homework_name, deadline) -> None:
         self.homework_name = homework_name
         self.deadline = datetime.timedelta(days=deadline)
         self.created = datetime.datetime.now()
 
-    def is_active(self):
+    def is_active(self) -> bool:
         return self.created + self.deadline > datetime.datetime.now()
+
+
+class Teacher:
+    def __init__(self, first_name, last_name) -> None:
+        self.first_name = first_name
+        self.last_name = last_name
+
+    @staticmethod
+    def create_homework(homework_name, deadline) -> Homework:
+        return Homework(homework_name, deadline)
