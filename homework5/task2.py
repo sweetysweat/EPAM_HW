@@ -49,7 +49,3 @@ def print_result(func):
 def custom_sum(*args):
     """This function can sum any objects which have __add___"""
     return functools.reduce(lambda x, y: x + y, args)
-
-
-print(custom_sum.__original_func)
-print(custom_sum)

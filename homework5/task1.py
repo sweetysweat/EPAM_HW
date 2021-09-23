@@ -36,20 +36,8 @@ PEP8 соблюдать строго.
 import datetime
 
 
-class Student:
-    def __init__(self, first_name, last_name) -> None:
-        self.first_name = first_name
-        self.last_name = last_name
-
-    @staticmethod
-    def do_homework(homework) -> str:
-        if homework.is_active():
-            return homework
-        return "You are late"
-
-
 class Homework:
-    def __init__(self, homework_name, deadline) -> None:
+    def __init__(self, homework_name: str, deadline: int) -> None:
         self.homework_name = homework_name
         self.deadline = datetime.timedelta(days=deadline)
         self.created = datetime.datetime.now()
@@ -59,10 +47,22 @@ class Homework:
 
 
 class Teacher:
-    def __init__(self, first_name, last_name) -> None:
+    def __init__(self, first_name: str, last_name: str) -> None:
         self.first_name = first_name
         self.last_name = last_name
 
     @staticmethod
-    def create_homework(homework_name, deadline) -> Homework:
+    def create_homework(homework_name: str, deadline: int) -> Homework:
         return Homework(homework_name, deadline)
+
+
+class Student:
+    def __init__(self, first_name: str, last_name: str) -> None:
+        self.first_name = first_name
+        self.last_name = last_name
+
+    @staticmethod
+    def do_homework(homework: Homework) -> Homework or str:
+        if homework.is_active():
+            return homework
+        return "You are late"
