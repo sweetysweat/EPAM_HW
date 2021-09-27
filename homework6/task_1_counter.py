@@ -11,8 +11,7 @@ reset_instances_counter - сбросить счетчик экземпляров
 
 def instances_counter(cls):
 
-
-    class Decorated_class(cls):
+    class AddNewMethods(cls):
         cls.count = 0
 
         def __init__(self, *args, **kwargs):
@@ -29,4 +28,4 @@ def instances_counter(cls):
         def get_created_instances():
             return cls.count
 
-    return Decorated_class
+    return AddNewMethods
