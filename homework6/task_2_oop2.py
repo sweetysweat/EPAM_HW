@@ -80,7 +80,7 @@ class Student(Person):
     def __init__(self, first_name: str, last_name: str):
         super().__init__(first_name, last_name)
 
-    def do_homework(self, homework: Homework, solution: str) -> Union[HomeworkResult, DeadlineError]:
+    def do_homework(self, homework: Homework, solution: str) -> HomeworkResult:
         if homework.is_active():
             return HomeworkResult(homework, solution, self)
         raise DeadlineError("You are late")
@@ -103,8 +103,7 @@ class Teacher(Person):
         return False
 
     def reset_results(self, *args: Homework):
-        if args:
-            for element in args:
-                self.homework_done.pop(element)
-        else:
+        if not args:
             self.homework_done.clear()
+        for element in args:
+            self.homework_done.pop(element)

@@ -9,9 +9,9 @@ reset_instances_counter - сбросить счетчик экземпляров
 """
 
 
-def instances_counter(cls):
+def instances_counter(any_class):
 
-    class AddNewMethods(cls):
+    class AddNewMethods(any_class):
         count = 0
 
         def __init__(self, *args, **kwargs):
