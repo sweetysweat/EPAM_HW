@@ -43,6 +43,7 @@ PEP8 соблюдать строго.
 
 import datetime
 from collections import defaultdict
+from typing import Union
 
 
 class DeadlineError(Exception):
@@ -67,10 +68,9 @@ class Homework:
 
 class HomeworkResult:
     def __init__(self, homework: Homework, solution: str, author: "Student"):
-        if isinstance(homework, Homework):
-            self.homework = homework
-        else:
+        if not isinstance(homework, Homework):
             raise Exception("You gave a not Homework object")
+        self.homework = homework
         self.solution = solution
         self.author = author
         self.created = datetime.datetime.now()
@@ -80,7 +80,7 @@ class Student(Person):
     def __init__(self, first_name: str, last_name: str):
         super().__init__(first_name, last_name)
 
-    def do_homework(self, homework: Homework, solution: str) -> HomeworkResult or DeadlineError:
+    def do_homework(self, homework: Homework, solution: str) -> Union[HomeworkResult, DeadlineError]:
         if homework.is_active():
             return HomeworkResult(homework, solution, self)
         raise DeadlineError("You are late")
@@ -102,8 +102,9 @@ class Teacher(Person):
             return True
         return False
 
-    def reset_results(self, *args):
+    def reset_results(self, *args: Homework):
         if args:
-            self.homework_done.pop(args)
+            for element in args:
+                self.homework_done.pop(element)
         else:
             self.homework_done.clear()

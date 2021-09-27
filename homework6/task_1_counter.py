@@ -12,20 +12,24 @@ reset_instances_counter - сбросить счетчик экземпляров
 def instances_counter(cls):
 
     class AddNewMethods(cls):
-        cls.count = 0
+        count = 0
 
         def __init__(self, *args, **kwargs):
-            cls.count += 1
-            cls(*args, **kwargs)
+            super().__init__(*args, ** kwargs)
+            self.increment_instances_counter()
 
-        @staticmethod
-        def reset_instances_counter():
+        @classmethod
+        def increment_instances_counter(cls):
+            cls.count += 1
+
+        @classmethod
+        def reset_instances_counter(cls):
             memory = cls.count
             cls.count = 0
             return memory
 
-        @staticmethod
-        def get_created_instances():
+        @classmethod
+        def get_created_instances(cls):
             return cls.count
 
     return AddNewMethods
