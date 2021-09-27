@@ -107,7 +107,3 @@ class Teacher(Person):
             self.homework_done.pop(args)
         else:
             self.homework_done.clear()
-
-
-t = Teacher('qwe', 'qwe')
-print(len(t.homework_done))
