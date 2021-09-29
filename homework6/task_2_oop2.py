@@ -43,7 +43,6 @@ PEP8 соблюдать строго.
 
 import datetime
 from collections import defaultdict
-from typing import Union
 
 
 class DeadlineError(Exception):
