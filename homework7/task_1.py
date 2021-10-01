@@ -7,17 +7,14 @@ Tree can only contains basic structures like:
 """
 from typing import Any
 
-counter = 0
 
-
-def find_occurrences(tree: dict, element: Any) -> int:
-    global counter
+def find_occurrences(tree: dict, element: Any, counter=0) -> int:
     if isinstance(tree, dict):
         for item in tree.values():
-            find_occurrences(item, element)
+            counter = find_occurrences(item, element, counter)
     elif type(tree) in [set, list, tuple]:
         for item in tree:
-            find_occurrences(item, element)
+            counter = find_occurrences(item, element, counter)
     elif tree == element:
         counter += 1
     return counter
