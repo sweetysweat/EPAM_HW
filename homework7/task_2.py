@@ -19,14 +19,16 @@ def modify_string(string: str) -> str:
     string = list(string)
     new_string = []
     for char in string:
-        if char != "#":
-            new_string.append(char)
-        elif not new_string:
-            continue
-        else:
+        if char == "#" and new_string:
             new_string.pop()
+        elif char != "#":
+            new_string.append(char)
+    print(new_string)
     return "".join(new_string)
 
 
 def backspace_compare(first: str, second: str) -> bool:
     return modify_string(first) == modify_string(second)
+
+
+print(backspace_compare("a##c", "#a#c"))
