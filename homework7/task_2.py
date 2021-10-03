@@ -20,9 +20,8 @@ def modify_string(input_string: str) -> str:
     for char in input_string:
         if char == "#" and modified_string:
             modified_string.pop()
-        elif char != "#":
+        else:
             modified_string.append(char)
-    print(modified_string)
     return "".join(modified_string)
 
 

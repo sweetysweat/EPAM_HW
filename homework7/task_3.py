@@ -16,47 +16,47 @@ Example:
      Return value should be "x wins!"
 """
 from itertools import chain
-from typing import Any, List
+from typing import Any, List, Union
 
 
-def check_row(row: List[Any]) -> str:
+def check_row(row: List[Any]) -> Union[str, None]:
     row = set(row)
     if '-' not in row and len(row) == 1:
-        return f"{row.pop()} wins"
+        return row.pop()
 
 
-def check_winner_by_rows(board: List[Any]) -> str:
+def check_winner_by_rows(board: List[Any]) -> Union[str, None]:
     for row_in_board in board:
         if check_row(row_in_board):
             return check_row(row_in_board)
 
 
-def check_winner_by_columns(board: List[List]) -> str:
+def check_winner_by_columns(board: List[List]) -> Union[str, None]:
     new_board = list(zip(*board))
     return check_winner_by_rows(new_board)
 
 
-def check_winner_by_left_diagonal(board: List[List]) -> str:
+def check_winner_by_left_diagonal(board: List[List]) -> Union[str, None]:
     diagonal = [board[i][i] for i in range(len(board))]
     return check_row(diagonal)
 
 
-def check_winner_by_right_diagonal(board: List[List]) -> str:
+def check_winner_by_right_diagonal(board: List[List]) -> Union[str, None]:
     length = len(board)
     diagonal = [board[i][length - 1 - i] for i in range(length)]
     return check_row(diagonal)
 
 
-def check_winner(board: List[List]):
-    win_by_rows_or_colums = check_winner_by_rows(board) or check_winner_by_columns(board)
+def check_winner(board: List[List]) -> Union[str, None]:
+    win_by_rows_or_columns = check_winner_by_rows(board) or check_winner_by_columns(board)
     win_by_diagonals = check_winner_by_left_diagonal(board) or check_winner_by_right_diagonal(board)
-    return win_by_rows_or_colums or win_by_diagonals
+    return win_by_rows_or_columns or win_by_diagonals
 
 
 def tic_tac_toe_checker(board: List[List]) -> str:
     find_winner = check_winner(board)
     if find_winner:
-        return find_winner
+        return f"{find_winner} wins"
     elif '-' in chain.from_iterable(board):
         return "unfinished"
     else:

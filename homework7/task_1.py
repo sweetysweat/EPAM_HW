@@ -12,7 +12,7 @@ def find_occurrences(tree: dict, element: Any, counter=0) -> int:
     if isinstance(tree, dict):
         for item in tree.values():
             counter = find_occurrences(item, element, counter)
-    elif type(tree) in [set, list, tuple]:
+    elif isinstance(tree, (list, tuple, set)):
         for item in tree:
             counter = find_occurrences(item, element, counter)
     elif tree == element:

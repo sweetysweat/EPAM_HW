@@ -23,26 +23,12 @@ test_case_draw = [["o", "o", "x"],
                   ["o", "o", "x"]]
 
 
-@pytest.mark.parametrize("test_input, expectation", [[test_case_draw, "draw"]])
+win_events = [[test_case_o_win_column, "o wins"], [test_case_o_win, "o wins"], [test_case_x_win, "x wins"]]
+unfinished_and_draw_events = [[test_case_draw, "draw"], [test_case_unfinished_game, "unfinished"]]
+
+all_events = win_events + unfinished_and_draw_events
+
+
+@pytest.mark.parametrize("test_input, expectation", [*all_events])
 def test_tic_tac_toe_checker_for_draw(test_input, expectation):
-    assert tic_tac_toe_checker(test_input) == expectation
-
-
-@pytest.mark.parametrize("test_input, expectation", [[test_case_unfinished_game, "unfinished"]])
-def test_tic_tac_toe_checker_for_unfinished_game(test_input, expectation):
-    assert tic_tac_toe_checker(test_input) == expectation
-
-
-@pytest.mark.parametrize("test_input, expectation", [[test_case_x_win, "x wins"]])
-def test_tic_tac_toe_checker_for_x_win(test_input, expectation):
-    assert tic_tac_toe_checker(test_input) == expectation
-
-
-@pytest.mark.parametrize("test_input, expectation", [[test_case_o_win, "o wins"]])
-def test_tic_tac_toe_checker_for_o_win(test_input, expectation):
-    assert tic_tac_toe_checker(test_input) == expectation
-
-
-@pytest.mark.parametrize("test_input, expectation", [[test_case_o_win_column, "o wins"]])
-def test_tic_tac_toe_checker_for_o_win_column(test_input, expectation):
     assert tic_tac_toe_checker(test_input) == expectation
