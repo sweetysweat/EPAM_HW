@@ -18,9 +18,9 @@ example_tree = {
     },
     "fourth": "RED",
 }
+test_cases = [("BLUE", 2), ("a", 1), ("RED", 6)]
 
 
-@pytest.mark.parametrize("test_input, element_to_find, expectation", [[example_tree, ["BLUE", "a", "RED"], [2, 1, 6]]])
-def test_find_occurrences(test_input, element_to_find, expectation):
-    for element, expect in zip(element_to_find, expectation):
-        assert find_occurrences(test_input, element) == expect
+@pytest.mark.parametrize("element_to_find, expectation", test_cases)
+def test_find_occurrences(element_to_find, expectation):
+    assert find_occurrences(example_tree, element_to_find) == expectation
