@@ -1,4 +1,4 @@
 name=kek
-last-name=top
+last_name=top
 power=9001
 song=shadilay

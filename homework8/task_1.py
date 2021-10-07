@@ -23,26 +23,20 @@ import re
 
 class KeyValueStorage:
     def __init__(self, path: str):
-        self.storage = DictWithAttr()
+        self.storage = dict()
         self.get_attr(path)
 
     def get_attr(self, path: str):
         with open(path, 'r') as f:
-            built_in_attrs = self.__dir__()
             for line in f:
                 key, value = line.strip().split('=')
-                if key not in built_in_attrs:
-                    regular_expression = re.search(r'^\w+$', key, re.ASCII)
-                    if not regular_expression or regular_expression.string.isdigit():
-                        raise ValueError("The key can only contain ASCII symbols!")
-                    if value.isdigit():
-                        value = int(value)
-                    self.storage[key] = value
+                if not re.search(r'^[a-zA-z][\w]*$', key, re.ASCII):
+                    raise ValueError("The key can only contain ASCII symbols!")
+                value = int(value) if value.isdigit() else value
+                self.storage[key] = value
 
+    def __getattr__(self, attr_name):
+        return self.storage[attr_name]
 
-class DictWithAttr(dict):
-    def __getattr__(self, name):
-        if name in self:
-            return self[name]
-        else:
-            raise AttributeError("No such attribute: " + name)
+    def __getitem__(self, attr_name):
+        return self.storage[attr_name]
