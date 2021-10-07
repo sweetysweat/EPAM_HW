@@ -30,7 +30,7 @@ class KeyValueStorage:
         with open(path, 'r') as f:
             for line in f:
                 key, value = line.strip().split('=')
-                if not re.search(r'^[a-zA-z][\w]*$', key, re.ASCII):
+                if not re.search(r'^[a-zA-z_][\w]*$', key, re.ASCII):
                     raise ValueError("The key can only contain ASCII symbols!")
                 value = int(value) if value.isdigit() else value
                 self.storage[key] = value
