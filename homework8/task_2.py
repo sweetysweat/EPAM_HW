@@ -17,27 +17,27 @@ next one, until records are exhausted. When writing tests, it's not always neces
 Use supplied example.sqlite file as database fixture file.
 """
 import sqlite3
+from typing import Union
 
 
 class TableData:
     def __init__(self, database_name: str, table_name: str):
-        self.database_name = database_name
         self. table_name = table_name
         self.conn = sqlite3.connect(database_name).cursor()
-        self.row_index = 0
+        self.row_index = -1
+        self.amount_of_rows = self.conn.execute(f"SELECT COUNT(*) FROM {self.table_name}").fetchone()[0]
 
-    def __len__(self):
-        return self.conn.execute(f"SELECT COUNT(*) FROM {self.table_name}").fetchone()[0]
+    def __len__(self) -> int:
+        return self.amount_of_rows
 
-    def __getitem__(self, name):
-        return self.conn.execute(f"SELECT * FROM {self.table_name} WHERE name LIKE '%{name}%'").fetchone()
+    def __getitem__(self, name: str) -> tuple[Union[str, int]]:
+        return self.conn.execute(f"SELECT * FROM {self.table_name} WHERE name = '{name}'").fetchone()
 
     def __iter__(self):
         return self
 
-    def __next__(self):
-        row = self.row_index
-        self.row_index += 1
-        if self.row_index > self.__len__():
+    def __next__(self) -> tuple:
+        if self.row_index >= self.amount_of_rows - 1:
             raise StopIteration
-        return self.conn.execute(f"SELECT * FROM {self.table_name}").fetchall()[row]
+        self.row_index += 1
+        return self.conn.execute(f"SELECT * FROM {self.table_name}").fetchall()[self.row_index]

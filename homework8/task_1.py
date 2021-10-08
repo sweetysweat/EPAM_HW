@@ -19,6 +19,7 @@ to an attribute (for example when there's a line 1=something) ValueError should 
 File size is expected to be small, you are permitted to read it entirely into memory.
 """
 import re
+from typing import Union
 
 
 class KeyValueStorage:
@@ -35,8 +36,8 @@ class KeyValueStorage:
                 value = int(value) if value.isdigit() else value
                 self.storage[key] = value
 
-    def __getattr__(self, attr_name):
+    def __getattr__(self, attr_name: str) -> Union[str, int]:
         return self.storage[attr_name]
 
-    def __getitem__(self, attr_name):
+    def __getitem__(self, attr_name: str) -> Union[str, int]:
         return self.storage[attr_name]
