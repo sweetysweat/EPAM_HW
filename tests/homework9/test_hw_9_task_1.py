@@ -1,13 +1,12 @@
 import os
-from collections import Iterator
 
 import pytest
 
 from homework9.hw_9_task_1 import merge_sorted_files
 
-txt_file1 = 'data1.txt'
-txt_file2 = 'data2.txt'
-txt_file3 = 'data3.txt'
+txt_file1 = "data1.txt"
+txt_file2 = "data2.txt"
+txt_file3 = "data3.txt"
 
 
 @pytest.fixture(autouse=True)
