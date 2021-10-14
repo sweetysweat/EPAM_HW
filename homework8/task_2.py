@@ -22,7 +22,7 @@ from typing import Union
 
 class TableData:
     def __init__(self, database_name: str, table_name: str):
-        self. table_name = table_name
+        self.table_name = table_name
         self.conn = sqlite3.connect(database_name).cursor()
         self.row_index = -1
         self.amount_of_rows = self.conn.execute(f"SELECT COUNT(*) FROM {self.table_name}").fetchone()[0]
@@ -40,4 +40,4 @@ class TableData:
         if self.row_index >= self.amount_of_rows - 1:
             raise StopIteration
         self.row_index += 1
-        return self.conn.execute(f"SELECT * FROM {self.table_name}").fetchall()[self.row_index]
+        return self.conn.execute(f"SELECT * FROM {self.table_name} LIMIT 1 OFFSET {self.row_index}").fetchone()
