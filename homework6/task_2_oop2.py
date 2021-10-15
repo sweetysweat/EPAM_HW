@@ -76,8 +76,8 @@ class HomeworkResult:
 
 
 class Student(Person):
-    def __init__(self, first_name: str, last_name: str):
-        super().__init__(first_name, last_name)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def do_homework(self, homework: Homework, solution: str) -> HomeworkResult:
         if homework.is_active():
@@ -87,15 +87,15 @@ class Student(Person):
 
 class Teacher(Person):
 
-    def __init__(self, first_name: str, last_name: str):
-        super().__init__(first_name, last_name)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.homework_done = defaultdict(list)
 
     @staticmethod
     def create_homework(homework_name: str, deadline: int) -> Homework:
         return Homework(homework_name, deadline)
 
-    def check_homework(self, done_homework: HomeworkResult):
+    def check_homework(self, done_homework: HomeworkResult) -> bool:
         if len(done_homework.solution) > 5:
             self.homework_done[done_homework.homework].append(done_homework)
             return True
