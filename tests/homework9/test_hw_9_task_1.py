@@ -8,11 +8,11 @@ from homework9.hw_9_task_1 import merge_sorted_files
 @pytest.fixture(autouse=True)
 def write_into_file():
     with open("data1.txt", 'w') as f:
-        f.writelines(["1\n", "5\n", "7"])
+        f.writelines(["1\n", "4\n", "7"])
     with open("data2.txt", 'w') as f:
-        f.writelines(["2\n", "4\n", "3"])
+        f.writelines(["2\n", "5\n", "8"])
     with open("data3.txt", 'w') as f:
-        f.writelines(["6\n", "9\n", "8"])
+        f.writelines(["3\n", "6\n", "9"])
     yield
     os.remove("data1.txt")
     os.remove("data2.txt")

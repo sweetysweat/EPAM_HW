@@ -1,12 +1,11 @@
+from contextlib import ExitStack
+from itertools import chain
 from pathlib import Path
 from typing import Iterator, List, Union
 
 
 def merge_sorted_files(file_list: List[Union[Path, str]]) -> Iterator:
-    data = []
-    for file in file_list:
-        with open(file, 'r') as f:
-            for line in f:
-                data.append(int(line.strip()))
-    for num in sorted(data):
-        yield num
+    with ExitStack() as stack:
+        files = [stack.enter_context(open(file_name)) for file_name in file_list]
+        data = [[int(num) for num in row] for row in zip(*files)]
+        return chain.from_iterable(data)
