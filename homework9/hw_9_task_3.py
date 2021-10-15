@@ -19,11 +19,11 @@ def universal_file_counter(dir_path: Path, file_extension: str, tokenizer: Optio
     for file_name in os.listdir(dir_path):
         if file_name.endswith(file_extension):
             if tokenizer:
-                with open(file_name, 'r') as f:
+                with open(Path.joinpath(dir_path, file_name), 'r') as f:
                     for line in f:
                         count += len(tokenizer(line))
             else:
-                with open(file_name, 'r') as f:
+                with open(Path.joinpath(dir_path, file_name), 'r') as f:
                     for _ in f:
                         count += 1
     return count

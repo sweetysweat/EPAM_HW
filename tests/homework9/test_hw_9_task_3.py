@@ -1,18 +1,19 @@
 import os
+from pathlib import Path
 
 import pytest
 
-from homework9.hw_9_task_2 import universal_file_counter
+from homework9.hw_9_task_3 import universal_file_counter
 
-directory = os.path.join(os.path.dirname(__file__))
-file1 = os.path.join(os.path.dirname(__file__), "data1.txt")
-file2 = os.path.join(os.path.dirname(__file__), "data2.txt")
-file3 = os.path.join(os.path.dirname(__file__), "data3.md")
+directory = Path(__file__).parent
+file1 = Path.joinpath(directory, "data1.txt")
+file2 = Path.joinpath(directory, "data2.txt")
+file3 = Path.joinpath(directory, "data3.md")
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture()
 def write_into_file():
-    with open(file1, 'w') as f:
+    with open(str(file1), 'w') as f:
         f.writelines(["1\n", "5\n", "7"])
     with open(file2, 'w') as f:
         f.writelines(["2\n", "4\n", "3"])
