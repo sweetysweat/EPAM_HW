@@ -16,14 +16,12 @@ from typing import Callable, Optional
 
 def universal_file_counter(dir_path: Path, file_extension: str, tokenizer: Optional[Callable] = None) -> int:
     count = 0
+    file_length = 1
     for file_name in os.listdir(dir_path):
         if file_name.endswith(file_extension):
-            if tokenizer:
-                with open(Path.joinpath(dir_path, file_name), 'r') as f:
-                    for line in f:
-                        count += len(tokenizer(line))
-            else:
-                with open(Path.joinpath(dir_path, file_name), 'r') as f:
-                    for _ in f:
-                        count += 1
+            with open(Path.joinpath(dir_path, file_name), 'r') as f:
+                for line in f:
+                    if tokenizer:
+                        file_length = len(tokenizer(line))
+                    count += file_length
     return count
