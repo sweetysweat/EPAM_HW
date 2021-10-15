@@ -20,7 +20,5 @@ def write_into_file():
 
 
 def test_merge_sorted_files(write_into_file):
-    data = []
-    for num in merge_sorted_files(["data1.txt", "data2.txt", "data3.txt"]):
-        data.append(num)
+    data = [num for num in merge_sorted_files(["data1.txt", "data2.txt", "data3.txt"])]
     assert data == [1, 2, 3, 4, 5, 6, 7, 8, 9]
