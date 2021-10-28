@@ -31,55 +31,91 @@ P/E компании (информация находится справа от 
 For scrapping you cans use beautifulsoup4
 For requesting aiohttp
 """
-import os
+import asyncio
+import json
+from typing import Optional
 
 from aiohttp import ClientSession
-import asyncio
 from bs4 import BeautifulSoup
-from datetime import datetime
 
 
-class WebScraper:
+class GatherCompanyData:
+    main_url = "https://markets.businessinsider.com"
+
     def __init__(self):
-        self.url = "https://markets.businessinsider.com/index/components/s&p_500"
-        # self.headers = {
-        #     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,\
-        #             */*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        #     "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
-        #      Chrome/94.0.4606.81 Safari/537.36",
-        # }
-        self.date = datetime.now().strftime("%d/%m/%Y")
-        self.dollar_value = None
+        self.dollar_value = 0
+        self.parsed_company_data = []
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.main())
 
-    async def get_amount_of_pages(self, session: ClientSession) -> int:
-        """Count amount of pages on the website"""
-        async with session.get(self.url) as response:
+    @staticmethod
+    async def get_dollar_value(session: ClientSession) -> float:
+        async with session.get("https://www.cbr.ru/scripts/XML_daily.asp") as response:
             data = await response.text()
-            soup = BeautifulSoup(data, "lxml")
-            return int(soup.find("div", class_="finando_paging margin-top--small").find_all("a")[-2].text)
+            return float(BeautifulSoup(data, "lxml").find("valute", {"id": "R01235"}).value.text.replace(',', '.'))
 
-    async def get_dollar_value(self, session: ClientSession) -> float:
-        """Get value of 1 dollar in rubles"""
-        response = await session.get("https://www.cbr.ru/scripts/XML_daily.asp?date_req=".join(self.date))
-        data = await response.text()
-        return float(BeautifulSoup(data, "lxml").find("valute", {"id": "R01235"}).find("value").text.strip())
+    async def get_data_from_table(self, session: ClientSession, url):
+        async with session.get(url) as response:
+            table_data = await response.text()
+            table = BeautifulSoup(table_data, "lxml").find_all("tr")[1:]  # с 1, чтобы игнорить заголовки
+            for row in table:
+                company_info = dict()
+                company_info["name"] = row.find("a").text.strip()
+                company_info["growth"] = float(row.find_all("td")[-1].find_all("span")[-1].text[:-1])
+                href = row.find("a")["href"]
+                async with session.get(self.main_url + href) as company_page:
+                    company_page_data = await company_page.text()
+                    soup = BeautifulSoup(company_page_data, "lxml")
+                    price_in_dollars = float(soup.find("span", class_="price-section__current-value")
+                                             .text.replace(',', ''))
+                    company_info["price"] = round((price_in_dollars * self.dollar_value), 2)
+                    company_info["code"] = soup.find("span", class_="price-section__category").find("span").text[2:]
+                    company_info["P/E"] = await self.get_company_PE(soup)
+                    company_info["profit"] = await self.get_company_profit(soup)
+                self.parsed_company_data.append(company_info)
 
-    async def get_company_data(self, session: ClientSession, url: str):
-        response = await session.get(url)
-        data = response.text()
-        print(data)
+    @staticmethod
+    async def get_company_PE(page: BeautifulSoup) -> Optional[float]:
+        if n := page.find("div", text="P/E Ratio"):
+            return float(n.parent.find(text=True).text.strip().replace(',', ''))
 
-    async def gather_data(self):
+    @staticmethod
+    async def get_company_profit(page: BeautifulSoup) -> Optional[float]:
+        if n := page.find("div", text="52 Week Low"):
+            week_low = float(n.parent.find(text=True).text.strip().replace(',', ''))
+            week_high = float(page.find("div", text="52 Week High")
+                              .parent.find(text=True).text.strip().replace(',', ''))
+            return round(((week_high - week_low) / week_high), 2)
+
+    def sort_and_save_data(self):
+        price = sorted(self.parsed_company_data, key=lambda x: x["price"])[-10:]
+        self.save_data("most_expensive_companies.json", price)
+
+        filtered_pe = list(filter(lambda x: isinstance(x["P/E"], float), self.parsed_company_data))
+        pe = sorted(filtered_pe, key=lambda x: x["P/E"])[0:10]
+        self.save_data("companies_with_lowest_pe.json", pe)
+
+        growth = sorted(self.parsed_company_data, key=lambda x: x["growth"])[-10:]
+        self.save_data("companies_with_highest_growth.json", growth)
+
+        filtered_profit = list(filter(lambda x: isinstance(x["profit"], float), self.parsed_company_data))
+        profit = sorted(filtered_profit, key=lambda x: x["profit"])[-10:]
+        self.save_data("companies_with_highest_profit.json", profit)
+
+    @staticmethod
+    def save_data(file_name, data):
+        with open(file_name, 'w') as f:
+            json.dump(data, f, indent=4)
+
+    async def main(self):
         tasks = []
         async with ClientSession() as session:
             self.dollar_value = await self.get_dollar_value(session)
-            for page in range(1, self.get_amount_of_pages(session) + 1):
-                url = self.url.join(f"?p={page}")
-                task = asyncio.create_task(self.get_company_data(session, url))
+            table_url = self.main_url + "/index/components/s&p_500"
+            async with session.get(table_url) as response:
+                data = await response.text()
+                pages = int(BeautifulSoup(data, "lxml").find("div", class_="finando_paging").find_all("a")[-2].text)
+            for page in range(1, pages + 1):
+                task = asyncio.create_task(self.get_data_from_table(session, f"{table_url}?p={str(page)}"))
                 tasks.append(task)
             await asyncio.gather(*tasks)
-
-
-t = WebScraper()
-loop = asyncio.get_event_loop()
-loop.run_until_complete(t.gather_data())

@@ -1,0 +1,82 @@
+[
+    {
+        "name": "ViacomCBS",
+        "growth": 28.11,
+        "price": 2501.31,
+        "code": "VIAC",
+        "P/E": null,
+        "profit": 0.73
+    },
+    {
+        "name": "Discovery Communications",
+        "growth": 26.95,
+        "price": 1590.28,
+        "code": "DISCK",
+        "P/E": 8.03,
+        "profit": 0.74
+    },
+    {
+        "name": "APA Corporation Registered Shs",
+        "growth": 198.28,
+        "price": 1877.9,
+        "code": "APA",
+        "P/E": -13.09,
+        "profit": 0.74
+    },
+    {
+        "name": "Occidental Petroleum",
+        "growth": 226.57,
+        "price": 2326.08,
+        "code": "OXY",
+        "P/E": -4.41,
+        "profit": 0.76
+    },
+    {
+        "name": "Discovery Communication a",
+        "growth": 22.36,
+        "price": 1647.53,
+        "code": "DISCA",
+        "P/E": 9.18,
+        "profit": 0.76
+    },
+    {
+        "name": "Marathon Oil",
+        "growth": 282.85,
+        "price": 1131.63,
+        "code": "MRO",
+        "P/E": -5.6,
+        "profit": 0.78
+    },
+    {
+        "name": "Diamondback Energy",
+        "growth": 294.49,
+        "price": 7510.2,
+        "code": "FANG",
+        "P/E": 15.58,
+        "profit": 0.79
+    },
+    {
+        "name": "Merck",
+        "growth": 6.34,
+        "price": 5694.43,
+        "code": "MRK",
+        "P/E": 13.66,
+        "profit": 0.82
+    },
+    {
+        "name": "Devon Energy",
+        "growth": 342.54,
+        "price": 2767.28,
+        "code": "DVN",
+        "P/E": -167.13,
+        "profit": 0.82
+    },
+    {
+        "name": "Moderna",
+        "growth": 362.98,
+        "price": 23796.97,
+        "code": "MRNA",
+        "P/E": -59.95,
+        "profit": 0.87
+    }
+]

@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Vornado Realty Trust",
+        "growth": 31.83,
+        "price": 2994.87,
+        "code": "VNO",
+        "P/E": -893.45,
+        "profit": 0.41
+    },
+    {
+        "name": "Chevron",
+        "growth": 55.4,
+        "price": 7821.56,
+        "code": "CVX",
+        "P/E": -427.45,
+        "profit": 0.43
+    },
+    {
+        "name": "Devon Energy",
+        "growth": 342.54,
+        "price": 2767.28,
+        "code": "DVN",
+        "P/E": -167.13,
+        "profit": 0.82
+    },
+    {
+        "name": "ExxonMobil",
+        "growth": 84.81,
+        "price": 4476.24,
+        "code": "XOM",
+        "P/E": -125.36,
+        "profit": 0.53
+    },
+    {
+        "name": "Phillips 66",
+        "growth": 72.82,
+        "price": 5398.44,
+        "code": "PSX",
+        "P/E": -76.53,
+        "profit": 0.54
+    },
+    {
+        "name": "Under Armour",
+        "growth": 40.96,
+        "price": 1519.07,
+        "code": "UAA",
+        "P/E": -64.5,
+        "profit": 0.5
+    },
+    {
+        "name": "Incyte",
+        "growth": -26.65,
+        "price": 4535.58,
+        "code": "INCY",
+        "P/E": -63.09,
+        "profit": 0.37
+    },
+    {
+        "name": "Twitter",
+        "growth": 23.25,
+        "price": 3826.31,
+        "code": "TWTR",
+        "P/E": -62.1,
+        "profit": 0.52
+    },
+    {
+        "name": "Moderna",
+        "growth": 362.98,
+        "price": 23796.97,
+        "code": "MRNA",
+        "P/E": -59.95,
+        "profit": 0.87
+    },
+    {
+        "name": "Under Armour",
+        "growth": 40.24,
+        "price": 1309.64,
+        "code": "UA",
+        "P/E": -55.67,
+        "profit": 0.48
+    }
+]
