@@ -1,4 +1,6 @@
 pytest~=6.2.4
+flake8==3.9.2
+isort==5.9.3
 pytest-sugar
 aiohttp~=3.7.4.post0
 bs4~=0.0.1
