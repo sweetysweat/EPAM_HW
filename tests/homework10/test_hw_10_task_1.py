@@ -10,17 +10,18 @@ def read_file(file):
         return f.read()
 
 
-table_html = read_file(os.path.join(os.path.dirname(__file__), "table.html"))
-mmm_html = read_file(os.path.join(os.path.dirname(__file__), "3M.html"))
-aos_html = read_file(os.path.join(os.path.dirname(__file__), "AOSmith.html"))
-av_html = read_file(os.path.join(os.path.dirname(__file__), "AV.html"))
+path = os.getcwd() + "/tests/homework10/"
+table_html = read_file(path + "table.html")
+mmm_html = read_file(path + "3M.html")
+aos_html = read_file(path + "AOSmith.html")
+av_html = read_file(path + "AV.html")
 
-growth = read_file(os.path.join(os.path.dirname(__file__), "growth.json"))
-profit = read_file(os.path.join(os.path.dirname(__file__), "profit.json"))
-p_e = read_file(os.path.join(os.path.dirname(__file__), "pe.json"))
-cost = read_file(os.path.join(os.path.dirname(__file__), "cost.json"))
+growth = read_file(path + "growth.json")
+profit = read_file(path + "profit.json")
+p_e = read_file(path + "pe.json")
+cost = read_file(path + "cost.json")
 
-dollar = read_file(os.path.join(os.path.dirname(__file__), 'XML_daily.asp'))
+dollar = read_file(path + "XML_daily.asp")
 
 
 def test_GatherCompanyData():
