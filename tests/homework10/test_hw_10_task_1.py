@@ -35,10 +35,10 @@ def test_GatherCompanyData():
 
         data = GatherCompanyData().sort_and_save_data()
 
-        assert growth == read_file(path + "companies_with_highest_growth.json")
-        assert profit == read_file(path + "companies_with_highest_profit.json")
-        assert p_e == read_file(path + "companies_with_lowest_pe.json")
-        assert cost == read_file(path + "most_expensive_companies.json")
+        assert growth == read_file("companies_with_highest_growth.json")
+        assert profit == read_file("companies_with_highest_profit.json")
+        assert p_e == read_file("companies_with_lowest_pe.json")
+        assert cost == read_file("most_expensive_companies.json")
 
         os.remove("companies_with_highest_growth.json")
         os.remove("companies_with_highest_profit.json")
