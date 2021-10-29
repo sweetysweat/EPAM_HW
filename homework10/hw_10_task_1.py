@@ -54,7 +54,7 @@ class GatherCompanyData:
             data = await response.text()
             return float(BeautifulSoup(data, "lxml").find("valute", {"id": "R01235"}).value.text.replace(',', '.'))
 
-    async def get_data_from_table(self, session: ClientSession, url):
+    async def get_data_from_table(self, session: ClientSession, url: str):
         async with session.get(url) as response:
             table_data = await response.text()
             table = BeautifulSoup(table_data, "lxml").find_all("tr")[1:]  # с 1, чтобы игнорить заголовки
@@ -88,22 +88,22 @@ class GatherCompanyData:
             return round(((week_high - week_low) / week_high), 2)
 
     def sort_and_save_data(self):
-        price = sorted(self.parsed_company_data, key=lambda x: x["price"])[-10:]
+        price = sorted(self.parsed_company_data, key=lambda x: x["price"], reverse=True)[:10]
         self.save_data("most_expensive_companies.json", price)
 
         filtered_pe = list(filter(lambda x: isinstance(x["P/E"], float), self.parsed_company_data))
-        pe = sorted(filtered_pe, key=lambda x: x["P/E"])[0:10]
+        pe = sorted(filtered_pe, key=lambda x: x["P/E"])[:10]
         self.save_data("companies_with_lowest_pe.json", pe)
 
-        growth = sorted(self.parsed_company_data, key=lambda x: x["growth"])[-10:]
+        growth = sorted(self.parsed_company_data, key=lambda x: x["growth"], reverse=True)[:10]
         self.save_data("companies_with_highest_growth.json", growth)
 
         filtered_profit = list(filter(lambda x: isinstance(x["profit"], float), self.parsed_company_data))
-        profit = sorted(filtered_profit, key=lambda x: x["profit"])[-10:]
+        profit = sorted(filtered_profit, key=lambda x: x["profit"], reverse=True)[:10]
         self.save_data("companies_with_highest_profit.json", profit)
 
     @staticmethod
-    def save_data(file_name, data):
+    def save_data(file_name: str, data: list):
         with open(file_name, 'w') as f:
             json.dump(data, f, indent=4)
 
