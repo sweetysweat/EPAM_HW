@@ -1,6 +1,8 @@
 import os
-from homework10.hw_10_task_1 import GatherCompanyData
+
 from aioresponses import aioresponses
+
+from homework10.hw_10_task_1 import GatherCompanyData
 
 
 def read_file(file):
