@@ -1,0 +1,26 @@
+[
+    {
+        "name": "3M",
+        "growth": 9.84,
+        "price": 12671.03,
+        "code": "MMM",
+        "P/E": 10.0,
+        "profit": 0.5
+    },
+    {
+        "name": "A.O. Smith",
+        "growth": 23.78,
+        "price": 12630.13,
+        "code": "AOS",
+        "P/E": 14.1,
+        "profit": 0.91
+    },
+    {
+        "name": "Abbott Laboratories",
+        "growth": 16.22,
+        "price": 12630.13,
+        "code": "AV",
+        "P/E": 1.0,
+        "profit": 0.5
+    }
+]
